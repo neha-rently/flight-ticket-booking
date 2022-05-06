@@ -1,2 +1,73 @@
 <h1>PASSENGER DETAILS</h1>
-<%= render "form", passenger: @passenger %>
+
+<%= form_with model: @passenger, url: "/passengers", method:"post" do |form|%>
+    <div>
+        <%= form.label "Passenger Name" %><br>
+        <%= form.text_field :name%>
+        <% @passenger.errors.full_messages_for(:name).each do |message| %>
+        <div><%= message %></div>
+        <% end %>
+    </div>
+
+    <div>
+        <%= form.label "Passenger Age"%><br>
+        <%= form.text_field :age%>
+        <% @passenger.errors.full_messages_for(:age).each do |message| %>
+        <div><%= message %></div>
+        <% end %>
+    </div>
+
+    <div>
+        <%= form.label "Passenger Email" %><br>
+        <%= form.text_field :email %>
+        <% @passenger.errors.full_messages_for(:email).each do |message| %>
+        <div><%= message %></div>
+        <% end %>
+    </div>
+
+    <div>
+        <%= form.label "Passenger Contact" %><br>
+        <%= form.text_field :contact%>
+        <% @passenger.errors.full_messages_for(:contact).each do |message| %>
+        <div><%= message %></div>
+        <% end %>
+    </div>
+
+    <h1>TICKET DETAILS</h1>
+
+    <div>
+        <%= form.label "Check-In Status" %><br>
+        <%= select_tag(:checkin_status, options_for_select(['NA','Checked-In'])) %>
+
+    </div>
+
+    <div>
+        <%= form.label "Seat Class" %><br>
+        <%= select_tag(:seat_class, options_for_select(['Economy','Business'])) %>
+
+    </div>
+
+    <div>
+        <%= form.label "Seat Number" %><br>
+        <%= select_tag(:seat_no, options_for_select(['1A','2B','3A','3B','4A','4B'])) %>
+    </div>
+
+    <div>
+        <%= form.label "Luggage (5 Kgs Free +)" %><br>
+        <%= select_tag(:luggage, options_for_select(['NA','5 Kgs','10 Kgs','15 Kgs'])) %>
+    </div>
+
+    <div>
+        <%= form.label "Food" %><br>
+        <%= select_tag(:food, options_for_select(['NA','Veg','Non-Veg'])) %>
+    </div>
+
+    <div>
+        <%= form.label "Total Cost" %><br>
+        <%= form.text_field :total_cost%>
+    </div>
+    
+    <div>
+        <%= form.submit  %>
+    </div>
+<% end %>

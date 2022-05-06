@@ -1,0 +1,38 @@
+<h1>TICKET DETAILS</h1>
+<%= form_with model: @ticket do |form|%>
+    <div>
+        <%= form.label "Check-In Status" %><br>
+        <%= select_tag(:checkin_status, options_for_select(['NA','Checked-In'],@ticket.checkin_status)) %>
+
+    </div>
+
+    <div>
+        <%= form.label "Seat Class" %><br>
+        <%= select_tag(:seat_class, options_for_select(['Economy','Business'],@ticket.seat_class)) %>
+
+    </div>
+
+    <div>
+        <%= form.label "Seat Number" %><br>
+        <%= select_tag(:seat_no, options_for_select(['1A','2B','3A','3B','4A','4B'], @ticket.seat_no)) %>
+    </div>
+
+    <div>
+        <%= form.label "Luggage (5 Kgs Free +)" %><br>
+        <%= select_tag(:luggage, options_for_select(['NA','5 Kgs','10 Kgs','15 Kgs'],@ticket.luggage)) %>
+    </div>
+
+    <div>
+        <%= form.label "Food" %><br>
+        <%= select_tag(:food, options_for_select(['NA','Veg','Non-Veg'],@ticket.food)) %>
+    </div>
+
+    <div>
+        <%= form.label "Total Cost" %><br>
+        <%= form.text_field :total_cost%>
+    </div>
+    
+    <div>
+        <%= form.submit  %>
+    </div>
+<% end %>

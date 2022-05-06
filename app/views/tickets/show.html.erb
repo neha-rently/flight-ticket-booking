@@ -1,0 +1,14 @@
+<h2>TICKET DETAILS</h2>
+<h3>Ticket Number : <%= @ticket.id%></h3>
+<h3>Check-In Status : <%= @ticket.checkin_status%></h3>
+<h3>Seat Class : <%= @ticket.seat_class%></h3>
+<h3>Seat Number : <%= @ticket.seat_no%></h3>
+<h3>Luggage (Free 5 Kgs +) : <%= @ticket.luggage%></h3>
+<h3>Food : <%= @ticket.food%></h3>
+<h3>Total Cost : Rs.<%= @ticket.total_cost%></h3>
+
+<div>
+<%= link_to "Edit", edit_ticket_path(@ticket)%>
+<%= link_to "Delete", ticket_path(@ticket), method: :delete, data: { confirm: "Are you sure?" }%>
+<%= link_to "Go to Home", "/passengers"%>
+</div>

@@ -1,0 +1,34 @@
+<h1>USER SIGNUP</h1>
+<%= form_with model: @user do |form|%>
+<div>
+<%= form.label "Username" %><br>
+<%= form.text_field :username%>
+<% @user.errors.full_messages_for(:username).each do |message| %>
+<div><%= message %></div>
+<% end %>
+</div>
+
+<div>
+<%= form.label "User Email" %><br>
+<%= form.text_field :email%>
+<% @user.errors.full_messages_for(:email).each do |message| %>
+<div><%= message %></div>
+<% end %>
+</div>
+
+<div>
+<%= form.label "User Contact" %><br>
+<%= form.text_field :contact%>
+<% @user.errors.full_messages_for(:contact).each do |message| %>
+<div><%= message %></div>
+<% end %>
+</div>
+
+<div>
+<%= form.submit "Signup" %>
+</div>
+
+<div>
+<%= link_to "Login", "/login"  %>
+</div>
+<% end %>
