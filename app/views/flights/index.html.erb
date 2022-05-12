@@ -1,0 +1,10 @@
+<h1>FLIGHT NUMBERS</h1>
+
+<ul>
+  <% @flights.each do |flight| %>
+    <li>
+      <%= link_to flight.flight_no, flight %>
+    </li>
+  <% end %>
+  <%# <%= hidden_field_tag(:passenger_id, @passenger.id)%> 
+</ul>

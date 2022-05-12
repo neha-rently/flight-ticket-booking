@@ -1,6 +1,8 @@
 <h1>PASSENGER DETAILS</h1>
 
+
 <%= form_with model: @passenger, url: "/passengers", method:"post" do |form|%>
+    <h2>Enter your details for flight number : <%= @flight.flight_no %></h2>
     <div>
         <%= form.label "Passenger Name" %><br>
         <%= form.text_field :name%>
@@ -61,13 +63,9 @@
         <%= form.label "Food" %><br>
         <%= select_tag(:food, options_for_select(['NA','Veg','Non-Veg'])) %>
     </div>
-
-    <div>
-        <%= form.label "Total Cost" %><br>
-        <%= form.text_field :total_cost%>
-    </div>
     
     <div>
+        <%= hidden_field_tag(:flight_id, @flight.id)%>
         <%= form.submit  %>
     </div>
 <% end %>

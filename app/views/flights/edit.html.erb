@@ -1,0 +1,46 @@
+<h1>FLIGHT DETAILS</h1>
+<%= form_with model: @flight do |form|%>
+    <div>
+        <%= form.label "Flight Number" %><br>
+        <%= form.text_field :flight_no%>
+    </div>
+
+    <div>
+        <%= form.label "Journey Date"%><br>
+        <%= form.text_field :journey_date%>
+    </div>
+
+    <div>
+        <%= form.label "Arrival Time" %><br>
+        <%= form.text_field :arr_time, value: @flight.arr_time.strftime("%k:%M") %>
+    </div>
+
+    <div>
+        <%= form.label "Departure Time" %><br>
+        <%= form.text_field :dep_time, value: @flight.dep_time.strftime("%k:%M")%>
+    </div>
+
+        <div>
+        <%= form.label "Departure Terminal" %><br>
+        <%= form.text_field :departing %>
+    </div>
+
+    <div>
+        <%= form.label "Arrival Terminal" %><br>
+        <%= form.text_field :arriving%>
+    </div>
+
+    <div>
+    <%= form.label "Flight Status" %><br>
+    <%= select_tag(:flight_status, options_for_select(['On Time','Arrived','Boarding','Gate Closing','Departed','Cancelled'],@flight.flight_status)) %>
+    </div>
+
+    <div>
+    <%= form.label "Seats Available" %><br>
+    <%= form.text_field :seats_available%>
+    </div>
+    
+    <div>
+        <%= form.submit  %>
+    </div>
+<% end %>

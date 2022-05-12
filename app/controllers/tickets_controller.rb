@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController
   def index
+    @tickets = Ticket.where(passenger_id:params["format"])
   end
 
   def show
@@ -27,6 +28,6 @@ class TicketsController < ApplicationController
 
   private
     def ticket_params
-      params.permit(:checkin_status, :seat_class, :seat_no, :luggage, :food, :total_cost)
+      params.permit(:checkin_status, :seat_class, :seat_no, :luggage, :food)
     end
 end

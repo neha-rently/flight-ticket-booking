@@ -26,11 +26,6 @@
         <%= form.label "Food" %><br>
         <%= select_tag(:food, options_for_select(['NA','Veg','Non-Veg'],@ticket.food)) %>
     </div>
-
-    <div>
-        <%= form.label "Total Cost" %><br>
-        <%= form.text_field :total_cost%>
-    </div>
     
     <div>
         <%= form.submit  %>

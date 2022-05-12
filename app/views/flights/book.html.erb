@@ -1,0 +1,16 @@
+<h1>SEARCH FOR FLIGHTS</h1>
+<%= form_with model: @flights, url: "/index", method:"post" do |form|%>
+    <div>
+        <%= form.label "From Terminal" %><br>
+        <%= form.text_field :departing%>
+    </div>
+
+    <div>
+        <%= form.label "To Terminal"%><br>
+        <%= form.text_field :arriving%>
+    </div>
+    
+    <div>
+        <%= form.submit "Search Flights"  %>
+    </div>
+<% end %>

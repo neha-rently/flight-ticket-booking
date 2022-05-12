@@ -1,6 +1,6 @@
 class PassengersController < ApplicationController
   def index
-    @passengers = Passenger.all
+    @passengers = Passenger.where(users_id:current_user&.id)
   end
 
   def show
@@ -10,24 +10,20 @@ class PassengersController < ApplicationController
 
   def new
       @passenger = Passenger.new
+      @flight = Flight.find_by(id:params["format"])
+      
   end
 
-  def create
-    @passenger = Passenger.new(name:params["passenger"][:name], age:params["passenger"][:age], email:params["passenger"][:email], contact:params["passenger"][:contact])
-    @passenger2 = Passenger.find_by(email:params["passenger"][:email])
-    if @passenger2 != nil
-        @passenger2.tickets.create(checkin_status:params[:checkin_status], seat_class:params[:seat_class], seat_no:params[:seat_no], luggage:params[:luggage], food:params[:food], total_cost:params["passenger"][:total_cost],passenger_id:@passenger2.id)
-        redirect_to @passenger2
-
+  def create 
+    id = current_user.id
+    @passenger = Passenger.new(name:params["passenger"][:name], age:params["passenger"][:age], email:params["passenger"][:email], contact:params["passenger"][:contact], users_id: id)
+    if @passenger.save
+      @passenger.tickets.create(checkin_status:params[:checkin_status], seat_class:params[:seat_class], seat_no:params[:seat_no], luggage:params[:luggage], food:params[:food],passenger_id:@passenger.id, users_id: @passenger.users_id,flights_id:params[:flight_id])
+      redirect_to @passenger
     else
-      if @passenger.save
-        puts  @passenger.id
-        @passenger.tickets.create(checkin_status:params[:checkin_status], seat_class:params[:seat_class], seat_no:params[:seat_no], luggage:params[:luggage], food:params[:food], total_cost:params["passenger"][:total_cost],passenger_id:@passenger.id)
-        redirect_to @passenger
-      else
       render :new
-      end
     end
+
   end
 
   def edit
@@ -36,7 +32,7 @@ class PassengersController < ApplicationController
 
   def update
     @passenger = Passenger.find(params[:id])
-    if @passenger.update(passenger_params)
+    if @passenger.update(name:params["passenger"][:name], age:params["passenger"][:age], email:params["passenger"][:email], contact:params["passenger"][:contact])
       redirect_to @passenger
     else
       render :edit
@@ -51,7 +47,7 @@ class PassengersController < ApplicationController
 
 private
     def passenger_params
-      params.require(:passenger).permit(:name, :age, :email, :contact,  :checkin_status, :seat_class, :seat_no, :luggage, :food, :total_cost)
+      params.permit(:name, :age, :email, :contact,  :checkin_status, :seat_class, :seat_no, :luggage, :food)
     end
 end
 

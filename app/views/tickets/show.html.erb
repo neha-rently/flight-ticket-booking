@@ -5,10 +5,20 @@
 <h3>Seat Number : <%= @ticket.seat_no%></h3>
 <h3>Luggage (Free 5 Kgs +) : <%= @ticket.luggage%></h3>
 <h3>Food : <%= @ticket.food%></h3>
-<h3>Total Cost : Rs.<%= @ticket.total_cost%></h3>
+
+<h2>FLIGHT DETAILS</h2>
+<h3>Flight Number : <%= @ticket.flight.flight_no%></h3>
+<h3>Journey Date : <%= @ticket.flight.journey_date%></h3>
+<h3>Arrival Time : <%= @ticket.flight.arr_time.strftime("%k:%M")%></h3>
+<h3>Departure Time : <%= @ticket.flight.dep_time.strftime("%k:%M")%></h3>
+<h3>Departure : <%= @ticket.flight.departing%></h3>
+<h3>Arrival : <%= @ticket.flight.arriving%></h3>
+
+
+
 
 <div>
-<%= link_to "Edit", edit_ticket_path(@ticket)%>
-<%= link_to "Delete", ticket_path(@ticket), method: :delete, data: { confirm: "Are you sure?" }%>
+<%# <%= link_to "Edit", edit_ticket_path(@ticket)%>
+<%# <%= link_to "Delete", ticket_path(@ticket), method: :delete, data: { confirm: "Are you sure?" } %> 
 <%= link_to "Go to Home", "/passengers"%>
 </div>
