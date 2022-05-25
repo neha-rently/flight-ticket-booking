@@ -1,19 +1,24 @@
 
 <h2>TRAVEL HISTORY</h2>
 
-<table>
-  <tr>
-    <th><%= "Ticket Number"%> </th>
-    <th><%=  "From"%> </th>
-    <th><%=  "To"%> </th>
-    <th><%=  "Date"%> </th>
-  </tr>
-<% @tickets.each do |ticket| %>
-  <tr>
-    <td><%= link_to ticket.id, ticket_path(ticket)%></td>
-    <td><%=ticket.flight.departing %></td>
-    <td>  <%=ticket.flight.arriving %></td>
-    <td>  <%=ticket.flight.journey_date %></td>
-  </tr>
-  <% end %>
-  </table>
+
+  <table class="table">
+  <thead>
+    <tr>
+      <th><%= "Ticket Number"%> </th>
+      <th><%=  "From"%> </th>
+      <th><%=  "To"%> </th>
+      <th><%=  "Date"%> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tickets.each do |ticket| %>
+      <tr>
+            <td><%= link_to ticket.id, ticket_path(ticket)%></td>
+            <td><%=ticket.flight.departing %></td>
+            <td>  <%=ticket.flight.arriving %></td>
+            <td>  <%=ticket.flight.journey_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

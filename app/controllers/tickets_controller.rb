@@ -28,6 +28,6 @@ class TicketsController < ApplicationController
 
   private
     def ticket_params
-      params.permit(:checkin_status, :seat_class, :seat_no, :luggage, :food)
+      params.permit(:checkin_status, :seat_class, :luggage, :food)
     end
 end

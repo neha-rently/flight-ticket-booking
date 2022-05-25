@@ -2,7 +2,6 @@
 <h3>Ticket Number : <%= @ticket.id%></h3>
 <h3>Check-In Status : <%= @ticket.checkin_status%></h3>
 <h3>Seat Class : <%= @ticket.seat_class%></h3>
-<h3>Seat Number : <%= @ticket.seat_no%></h3>
 <h3>Luggage (Free 5 Kgs +) : <%= @ticket.luggage%></h3>
 <h3>Food : <%= @ticket.food%></h3>
 
@@ -13,6 +12,7 @@
 <h3>Departure Time : <%= @ticket.flight.dep_time.strftime("%k:%M")%></h3>
 <h3>Departure : <%= @ticket.flight.departing%></h3>
 <h3>Arrival : <%= @ticket.flight.arriving%></h3>
+<h3>Cost : Rs.<%= @ticket.cost%></h3>
 
 
 

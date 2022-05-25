@@ -7,13 +7,13 @@
 <h3>Arrival Terminal : <%= @flight.arriving%></h3>
 <h3>Flight Status : <%= @flight.flight_status%></h3>
 <h3>Seats Available : <%= @flight.seats_available%></h3>
+<h3>Economy Seat Cost : Rs.<%= @flight.economy%></h3>
+<h3>Business Seat Cost : Rs.<%= @flight.business%></h3>
 
-<%# <div>
-<%= link_to "Edit", edit_flight_path(@flight)%>
-<%# <%= link_to "Delete", flight_path(@flight), method: :delete, data: { confirm: "This will delete all the flight's details. Are you sure?" }%>
-<%# <%= link_to "Go to Home", "/passengers"%>
-<%# </div>  %> 
 <div>
-<%# <%= link_to "Go Back", "/index"%> 
-<%= link_to "Book Ticket", new_passenger_path(@flight)%>
+    <% if params[:pid] != "" %>
+        <%= link_to "Book Ticket", "/passengers/new/#{@flight.id}?pid=#{params[:pid]}" %>
+    <% else %>
+        <%= link_to "Book Ticket", "/passengers/new/#{@flight.id}"%>
+    <% end %>
 </div>

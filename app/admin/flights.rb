@@ -5,7 +5,7 @@ ActiveAdmin.register Flight do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :flight_no, :journey_date, :arr_time, :dep_time, :departing, :arriving, :flight_status, :seats_available
+  permit_params :flight_no, :journey_date, :arr_time, :dep_time, :departing, :arriving, :flight_status, :seats_available, :economy, :business
   #
   # or
   #

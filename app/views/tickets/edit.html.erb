@@ -13,11 +13,6 @@
     </div>
 
     <div>
-        <%= form.label "Seat Number" %><br>
-        <%= select_tag(:seat_no, options_for_select(['1A','2B','3A','3B','4A','4B'], @ticket.seat_no)) %>
-    </div>
-
-    <div>
         <%= form.label "Luggage (5 Kgs Free +)" %><br>
         <%= select_tag(:luggage, options_for_select(['NA','5 Kgs','10 Kgs','15 Kgs'],@ticket.luggage)) %>
     </div>

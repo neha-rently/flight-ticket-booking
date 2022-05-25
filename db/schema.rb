@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_11_110003) do
+ActiveRecord::Schema.define(version: 2022_05_20_050659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,36 @@ ActiveRecord::Schema.define(version: 2022_05_11_110003) do
     t.integer "seats_available", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "economy", null: false
+    t.float "business", null: false
+  end
+
+  create_table "oauth_access_tokens", force: :cascade do |t|
+    t.integer "resource_owner_id"
+    t.integer "application_id", null: false
+    t.string "token", null: false
+    t.string "refresh_token"
+    t.integer "expires_in"
+    t.datetime "revoked_at"
+    t.datetime "created_at", null: false
+    t.string "scopes"
+    t.string "previous_refresh_token", default: "", null: false
+    t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id"
+    t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
+    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
+    t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
+  end
+
+  create_table "oauth_applications", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "uid", null: false
+    t.string "secret", null: false
+    t.text "redirect_uri"
+    t.string "scopes", default: "", null: false
+    t.boolean "confidential", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
   create_table "passengers", force: :cascade do |t|
@@ -62,6 +92,7 @@ ActiveRecord::Schema.define(version: 2022_05_11_110003) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "users_id", null: false
+    t.index ["contact"], name: "index_passengers_on_contact", unique: true
     t.index ["email", "contact"], name: "index_passengers_on_email_and_contact", unique: true
     t.index ["email"], name: "index_passengers_on_email", unique: true
     t.index ["users_id"], name: "index_passengers_on_users_id"
@@ -69,8 +100,6 @@ ActiveRecord::Schema.define(version: 2022_05_11_110003) do
 
   create_table "tickets", force: :cascade do |t|
     t.string "checkin_status"
-    t.string "seat_class"
-    t.string "seat_no"
     t.string "luggage"
     t.string "food"
     t.bigint "passenger_id", null: false
@@ -78,6 +107,8 @@ ActiveRecord::Schema.define(version: 2022_05_11_110003) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "flights_id"
     t.bigint "users_id", null: false
+    t.float "cost"
+    t.string "seat_class"
     t.index ["flights_id"], name: "index_tickets_on_flights_id"
     t.index ["passenger_id"], name: "index_tickets_on_passenger_id"
     t.index ["users_id"], name: "index_tickets_on_users_id"
@@ -97,6 +128,7 @@ ActiveRecord::Schema.define(version: 2022_05_11_110003) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "passengers", "users", column: "users_id"
   add_foreign_key "tickets", "flights", column: "flights_id"
   add_foreign_key "tickets", "passengers"

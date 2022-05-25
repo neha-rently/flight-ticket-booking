@@ -1,12 +1,18 @@
-<h2>PASSENGER DETAILS</h2>
-<h3>Passenger Name : <%= @passenger.name%></h3>
-<h3>Passenger Age : <%= @passenger.age%></h3>
-<h3>Passenger Email : <%= @passenger.email%></h3>
-<h3>Passenger Contact : <%= @passenger.contact%></h3>
 
-<div>
-<%= link_to "Edit", edit_passenger_path(@passenger)%>
-<%# <%= link_to "Delete", passenger_path(@passenger), method: :delete, data: { confirm: "This will delete all the tickets associated with the passenger. Are you sure?" }%> 
-<%= link_to "Go to Home", "/passengers"%>
-<%= link_to "View Travel History", tickets_path(@passenger.id)%>
+
+
+
+<div class="card" style="width: 38rem;height: 16rem;">
+  <div class="card-body">
+    <h3 class="card-title">Passenger Name : <%= @passenger.name%></h3>
+    <h3 class="card-title">Passenger Age  : <%= @passenger.age%></h3>
+    <h3 class="card-title">Passenger Email : <%= @passenger.email%></h3>
+    <h3 class="card-title">Passenger Contact : <%= @passenger.contact%></h3>
+    <div>
+        <span><%= link_to "Edit", edit_passenger_path(@passenger)%></span>&nbsp&nbsp&nbsp
+        <%# <%= link_to "Delete", passenger_path(@passenger), method: :delete, data: { confirm: "This will delete all the tickets associated with the passenger. Are you sure?" }%> 
+        <span><%= link_to "View Travel History", tickets_path(@passenger.id)%></span>&nbsp&nbsp&nbsp
+        <span><%= link_to "Book a Flight", "/index?id=#{@passenger.id}"%></span>
+    </div>
+  </div>
 </div>

@@ -3,7 +3,6 @@
 one:
   checkin_status: MyString
   seat_class: MyString
-  seat_no: MyString
   luggage: MyString
   food: MyString
   total_cost: 1.5
@@ -12,7 +11,6 @@ one:
 two:
   checkin_status: MyString
   seat_class: MyString
-  seat_no: MyString
   luggage: MyString
   food: MyString
   total_cost: 1.5

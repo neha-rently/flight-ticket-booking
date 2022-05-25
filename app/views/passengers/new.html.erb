@@ -39,7 +39,7 @@
 
     <div>
         <%= form.label "Check-In Status" %><br>
-        <%= select_tag(:checkin_status, options_for_select(['NA','Checked-In'])) %>
+        <%= select_tag(:checkin_status, options_for_select(['Direct Check-In','Web Check-In'])) %>
 
     </div>
 
@@ -50,17 +50,12 @@
     </div>
 
     <div>
-        <%= form.label "Seat Number" %><br>
-        <%= select_tag(:seat_no, options_for_select(['1A','2B','3A','3B','4A','4B'])) %>
-    </div>
-
-    <div>
-        <%= form.label "Luggage (5 Kgs Free +)" %><br>
+        <%= form.label "Luggage (5 Kgs Free plus Rs1000 for every 1 kg)" %><br>
         <%= select_tag(:luggage, options_for_select(['NA','5 Kgs','10 Kgs','15 Kgs'])) %>
     </div>
 
     <div>
-        <%= form.label "Food" %><br>
+        <%= form.label "Food (Veg - Rs350 Non-Veg - Rs500)" %><br>
         <%= select_tag(:food, options_for_select(['NA','Veg','Non-Veg'])) %>
     </div>
     

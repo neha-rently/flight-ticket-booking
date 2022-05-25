@@ -1,10 +1,123 @@
-<h1>FLIGHT NUMBERS</h1>
+<div class="container">
+  <div class="row">
+    <a class=" dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      Filters
+    </a>
+  </div>
+  <div class="row">
+    <div class="col-5 offset-8">
+      <ul id="dropdownModal" style="display:none;">
+        <form method="get" action="/index">
+          <div data-role="main" class="col-6" style="float:right">
+            Departing
+            <%= select_tag(:departing, options_from_collection_for_select(@departing, 'departing' , 'departing',params[:departing])) %>
+              Arriving
+              <%= select_tag(:arriving, options_from_collection_for_select(@arriving, 'arriving' , 'arriving',params[:arriving] )) %>
+                Travel Date
+                <%= date_field_tag(:journey_date, params[:journey_date])%>
+                  Price Range
 
-<ul>
-  <% @flights.each do |flight| %>
-    <li>
-      <%= link_to flight.flight_no, flight %>
-    </li>
-  <% end %>
-  <%# <%= hidden_field_tag(:passenger_id, @passenger.id)%> 
-</ul>
+                  <div data-role="rangeslider">
+                    <span id="value"></span>
+                    <input type="range" name="price" id="price" value="0" min="0" max="10000">
+                  </div>
+                  
+                  <input type="submit" data-inline="true" value="Submit" id="submitButton">
+          </div>
+        </form>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <table class="col-11  table ">
+    <thead>
+      <tr>
+        <th>
+          <%= "Flight Number" %>
+        </th>
+        <th>
+          <%= "Departure" %>
+        </th>
+        <th>
+          <%= "Arrival" %>
+        </th>
+        <th>
+          <%= "Departure Time" %>
+        </th>
+        <th>
+          <%= "Arrival Time" %>
+        </th>
+        <th>
+          <%= "Date" %>
+        </th>
+        <th>
+          <%= "Price Starts From" %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @flights.each do |flight| %>
+        <tr>
+          <td>
+            <% print "helloo #{params}" %>
+              <% if params.has_key?(:id) %>
+                <%= link_to flight.flight_no, "/flights/#{flight.id}?pid=#{params[:id]}" %>
+                  <% else %>
+                    <%= link_to flight.flight_no, "/flights/#{flight.id}" %>
+                      <% end %>
+          </td>
+          <td>
+            <%=flight.departing %>
+          </td>
+          <td>
+            <%=flight.arriving %>
+          </td>
+          <td>
+            <%=flight.dep_time.strftime("%k:%M") %>
+          </td>
+          <td>
+            <%=flight.arr_time.strftime("%k:%M") %>
+          </td>
+          <td>
+            <%=flight.journey_date %>
+          </td>
+          <td>
+            <%=flight.economy %>
+          </td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+
+  let ele = document.getElementById("dropdownModal")
+
+  document.getElementById("navbarDropdown").addEventListener("click", (e) => {
+    console.log(e);
+    console.log("ele", ele)
+
+    if (ele.style.display == "none") {
+      console.log("inside if")
+      ele.style.display = "block";
+    }
+    else if (ele.style.display == "block") {
+      console.log("inside else")
+      ele.style.display = "none";
+    }
+
+  })
+  let isDirty = false
+  $('#price').click(function(e){
+   isDirty=true;
+   console.log(e.target.value);
+   $('#value').text(e.target.value);
+  });
+
+
+
+</script>
