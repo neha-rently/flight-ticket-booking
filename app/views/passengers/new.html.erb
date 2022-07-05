@@ -1,66 +1,108 @@
-<h1>PASSENGER DETAILS</h1>
 
-
-<%= form_with model: @passenger, url: "/passengers", method:"post" do |form|%>
-    <h2>Enter your details for flight number : <%= @flight.flight_no %></h2>
+<div class="row justify-content-center">
+  <div class="col-4">
+<div class="card">
+  <div class="card-header">
+          <h2><b>PASSENGER <span id="pass_count"></span> DETAILS</b></h2>
+          </div>
+<%= form_with model: @passenger, url: "/passengers", method:"post",id:"passenger_form" do |form|%>
+  <div class="card-body">
+    <h3>Enter your details for flight number : <%= @flight.flight_no %></h3>
     <div>
-        <%= form.label "Passenger Name" %><br>
-        <%= form.text_field :name%>
-        <% @passenger.errors.full_messages_for(:name).each do |message| %>
+    <h4 class="card-title"><b>Passenger Name</b> : <%= form.text_field :name%></h4>
+    <% @passenger.errors.full_messages_for(:name).each do |message| %>
+        <div><%= message %></div>
+        <% end %>
+    </div>
+    <div>
+    <h4 class="card-title"><b>Passenger Age</b> : <%= form.text_field :age%></h4>
+    <% @passenger.errors.full_messages_for(:age).each do |message| %>
+        <div><%= message %></div>
+        <% end %>
+    </div>
+    <div>
+    <h4 class="card-title"><b>Passenger Email</b> : <%= form.text_field :email%></h4>
+    <% @passenger.errors.full_messages_for(:email).each do |message| %>
+        <div><%= message %></div>
+        <% end %>
+    </div>
+    <div>
+    <h4 class="card-title"><b>Passenger Contact</b> : <%= form.text_field :contact%></h4>
+    <% @passenger.errors.full_messages_for(:contact).each do |message| %>
         <div><%= message %></div>
         <% end %>
     </div>
 
+    <div class="card-header">
+          <h2><b>TICKET DETAILS</b></h2>
+          </div>
+    
+    <h4 class="card-title"><b>Check-In Status</b> : <%= select_tag(:checkin_status, options_for_select(['Direct Check-In','Web Check-In'])) %></h4>
+    <h4 class="card-title"><b>Seat Class</b> : <%= select_tag(:seat_class, options_for_select(['Economy','Business'])) %> </h4>
+    <h4 class="card-title"><b>Luggage (5 Kgs Free + Rs.1000 for every 1 Kg)</b> : <%= select_tag(:luggage, options_for_select(['NA','5 Kgs','10 Kgs','15 Kgs'])) %> </h4>
+    <h4 class="card-title"><b>Food (Veg - Rs.350, Non-Veg - Rs.500)</b> : <%= select_tag(:food, options_for_select(['NA','Veg','Non-Veg'])) %> </h4>
     <div>
-        <%= form.label "Passenger Age"%><br>
-        <%= form.text_field :age%>
-        <% @passenger.errors.full_messages_for(:age).each do |message| %>
-        <div><%= message %></div>
-        <% end %>
-    </div>
-
-    <div>
-        <%= form.label "Passenger Email" %><br>
-        <%= form.text_field :email %>
-        <% @passenger.errors.full_messages_for(:email).each do |message| %>
-        <div><%= message %></div>
-        <% end %>
-    </div>
-
-    <div>
-        <%= form.label "Passenger Contact" %><br>
-        <%= form.text_field :contact%>
-        <% @passenger.errors.full_messages_for(:contact).each do |message| %>
-        <div><%= message %></div>
-        <% end %>
-    </div>
-
-    <h1>TICKET DETAILS</h1>
-
-    <div>
-        <%= form.label "Check-In Status" %><br>
-        <%= select_tag(:checkin_status, options_for_select(['Direct Check-In','Web Check-In'])) %>
-
-    </div>
-
-    <div>
-        <%= form.label "Seat Class" %><br>
-        <%= select_tag(:seat_class, options_for_select(['Economy','Business'])) %>
-
-    </div>
-
-    <div>
-        <%= form.label "Luggage (5 Kgs Free plus Rs1000 for every 1 kg)" %><br>
-        <%= select_tag(:luggage, options_for_select(['NA','5 Kgs','10 Kgs','15 Kgs'])) %>
-    </div>
-
-    <div>
-        <%= form.label "Food (Veg - Rs350 Non-Veg - Rs500)" %><br>
-        <%= select_tag(:food, options_for_select(['NA','Veg','Non-Veg'])) %>
+        <%= form.hidden_field :actual_users, id:"actual_users"%>
     </div>
     
-    <div>
+    <div class="mt-4">
+        <div>
         <%= hidden_field_tag(:flight_id, @flight.id)%>
-        <%= form.submit  %>
+        <%= hidden_field_tag(:pnr, @pnr.id)%>
+        <%= form.submit "Create Passenger", id:"submitBtn" ,class: "btn btn-primary"%>
+        </div>
+        
     </div>
+  </div>
+  </div>
+   </div>
 <% end %>
+</div>
+
+<script>
+    let pass_count = parseInt(window.location.search.at(-1))
+    console.log("pass_count",pass_count)
+    curr_count = 0
+    users = []
+    $("#pass_count").text(curr_count+1)
+    $("#passenger_form").submit((e)=> {
+        e.preventDefault();
+        console.log($("#passenger_form")[0])
+        if(curr_count < pass_count) {
+        users.push({
+            name:$("#passenger_name").val(),
+            age:$("#passenger_age").val(),
+            email:$("#passenger_email").val(),
+            contact:$("#passenger_contact").val(),
+            checkin_status:$("#checkin_status").val(),
+            seat_class:$("#seat_class").val(),
+            luggage:$("#luggage").val(),
+            food:$("#food").val()
+            
+
+        })
+        $("#passenger_name").val("")
+        $("#passenger_age").val("")
+            $("#passenger_email").val("")
+            $("#passenger_contact").val("")
+            $("#checkin_status").val("Direct Check-In")
+            $("#seat_class").val("Economy")
+            $("#luggage").val("NA")
+            $("#food").val("NA")
+        curr_count++;
+            e.stopPropagation();
+            $("#pass_count").text(curr_count+1)
+
+        console.log("users",users)
+        }        
+        if(curr_count == pass_count) {
+            $("#actual_users").val(JSON.stringify({"actual_users":users}))
+             $("#passenger_form").off("submit")
+             $("#passenger_form").submit()
+        }
+       
+
+    })
+
+    
+</script>

@@ -1,39 +1,52 @@
-<div class="container">
-  <div class="row">
-    <a class=" dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-      aria-expanded="false">
+<div class="container"style="z-index:-1">
+  <div class="dropdown">
+    <button  class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" style="float:right">
       Filters
-    </a>
-  </div>
-  <div class="row">
-    <div class="col-5 offset-8">
-      <ul id="dropdownModal" style="display:none;">
-        <form method="get" action="/index">
-          <div data-role="main" class="col-6" style="float:right">
-            Departing
-            <%= select_tag(:departing, options_from_collection_for_select(@departing, 'departing' , 'departing',params[:departing])) %>
-              Arriving
-              <%= select_tag(:arriving, options_from_collection_for_select(@arriving, 'arriving' , 'arriving',params[:arriving] )) %>
-                Travel Date
-                <%= date_field_tag(:journey_date, params[:journey_date])%>
-                  Price Range
+    </button >
+ 
 
-                  <div data-role="rangeslider">
-                    <span id="value"></span>
-                    <input type="range" name="price" id="price" value="0" min="0" max="10000">
+<ul id="navbarDropdown"class="dropdown-menu">
+        <form class="p-4" method="get" action="/index" id="filter">
+          <div data-role="main" class="">
+ 
+ <div class="mb-44444">
+            Departing
+            <%= select_tag(:departing, options_from_collection_for_select(@departing, 'departing' , 'departing',params[:departing] ),class: "btn btn-light dropdown-toggle" )%>
+    </div>
+ <div class="mb-4">
+            Arriving
+            <%= select_tag(:arriving, options_from_collection_for_select(@arriving, 'arriving' , 'arriving',params[:arriving] ),class: "btn btn-light dropdown-toggle" ) %>
+    </div>
+ <div class="mb-4">
+            Travel Date <%= date_field_tag(:journey_date, params[:journey_date],class:"form-control")%>
+             <div class="mb-3">
+            Price Range
+            <div data-role="rangeslider">
+              <span id="value"></span>
+              <input type="range" class="form-range" name="price" id="price" value="0" min="0" max="10000">
+            </div>
+               </div>
+ <div class="mb-4">
+            Passengers Count
+             <div class="row">
+  <div class="col-6">
+            <%= number_field_tag(:count, params[:count],class:"form-control") %>
+                  </div>   
+                   <div class="col-6">
+            <input class="btn btn-primary" type="submit" data-inline="true" value="Submit" id="filter">
+               </div>
                   </div>
-                  
-                  <input type="submit" data-inline="true" value="Submit" id="submitButton">
+                 </div>
           </div>
         </form>
-      </ul>
-    </div>
-  </div>
+        </ul>
+     </div>
+  
 </div>
 
-<div class="container">
-  <table class="col-11  table ">
-    <thead>
+<div class="container mt-4">
+  <table class="col-11  table table-striped">
+    <thead class="table-dark">
       <tr>
         <th>
           <%= "Flight Number" %>
@@ -64,9 +77,9 @@
           <td>
             <% print "helloo #{params}" %>
               <% if params.has_key?(:id) %>
-                <%= link_to flight.flight_no, "/flights/#{flight.id}?pid=#{params[:id]}" %>
+                <%= link_to flight.flight_no, "/flights/#{flight.id}?pid=#{params[:id]}&count=1" %>
                   <% else %>
-                    <%= link_to flight.flight_no, "/flights/#{flight.id}" %>
+                    <%= link_to flight.flight_no, "/flights/#{flight.id}?count=#{params[:count]}" %>
                       <% end %>
           </td>
           <td>
@@ -93,9 +106,9 @@
   </table>
 </div>
 
-<script type="text/javascript">
+<script>
 
-  let ele = document.getElementById("dropdownModal")
+  ele = document.getElementById("dropdownModal")
 
   document.getElementById("navbarDropdown").addEventListener("click", (e) => {
     console.log(e);
@@ -111,12 +124,67 @@
     }
 
   })
-  let isDirty = false
+
+
+  isDeparting = false
+  $('#departing').click(function(){
+    isDeparting = true;
+  })
+
+   isArriving = false
+  $('#arriving').click(function(){
+    isArriving = true;
+  })
+
+  isJourneyDate = false
+  $('#journey_date').click(function(){
+    isJourneyDate = true;
+  })
+
+  isCount = false
+  $('#count').click(function(){
+    isCount = true;
+  })
+
+   isDirty = false
   $('#price').click(function(e){
    isDirty=true;
    console.log(e.target.value);
    $('#value').text(e.target.value);
   });
+
+  $('#filter').submit(function(e){
+    e.preventDefault();
+    console.log(e, !isDeparting);
+    if(!isDeparting){
+      $('#departing').val("");
+    }
+    if(!isArriving){
+      $('#arriving').val("");
+    }
+    if(!isJourneyDate){
+      const date = new Date();
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      if (day <= 9)  
+      day = "0" + day;
+      if (month <= 9)
+      month = "0" + month;
+      const today = year + "-" + month + "-" + day
+      $('#journey_date').val(today);
+    }
+    if(!isCount){
+      $('#count').val(1);
+    }
+    if(!isDirty){
+      console.log($("#filter"))
+      $("#price").val(0);
+      console.log($("#price").val());
+    }
+    $("#filter").off("submit")
+    $(this).submit();
+  })
 
 
 

@@ -1,24 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Passenger, :type => :model do
-        # subject {
-        #     described_class.new(name: "Rachel",
-        #                         age: 25,
-        #                         email: "rachel@gmail.com",
-        #                         contact: "7665467789",
-        #                         users_id: 1)
-        # }
-
-
-
+        subject {
+            build(:passenger)
+        }
 
         it "is valid with valid attributes" do
-            expect(build(:passenger)).to be_valid
+            expect(subject).to be_valid
         end
 
         it "is not valid without a name" do
-            passenger2 = build(:passenger, name: nil)
-            expect(passenger2).to_not be_valid
+            subject.name=nil
+            expect(subject).to_not be_valid
         end
 
         it "is not valid without an age" do

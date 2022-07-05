@@ -1,19 +1,37 @@
-<h2>FLIGHT DETAILS</h2>
-<h3>Flight Number : <%= @flight.flight_no%></h3>
-<h3>Journey Date : <%= @flight.journey_date%></h3>
-<h3>Arrival Time : <%= @flight.arr_time.strftime("%k:%M")%></h3>
-<h3>Departure Time : <%= @flight.dep_time.strftime("%k:%M")%></h3>
-<h3>Departure Terminal : <%= @flight.departing%></h3>
-<h3>Arrival Terminal : <%= @flight.arriving%></h3>
-<h3>Flight Status : <%= @flight.flight_status%></h3>
-<h3>Seats Available : <%= @flight.seats_available%></h3>
-<h3>Economy Seat Cost : Rs.<%= @flight.economy%></h3>
-<h3>Business Seat Cost : Rs.<%= @flight.business%></h3>
 
-<div>
-    <% if params[:pid] != "" %>
-        <%= link_to "Book Ticket", "/passengers/new/#{@flight.id}?pid=#{params[:pid]}" %>
+
+
+
+
+<div class="row justify-content-center">
+  <div class="col-4">
+<div class="card">
+  <div class="card-header">
+          <h2><b>FLIGHT DETAILS</b></h2>
+          </div>
+  <div class="card-body">
+    <h3 class="card-title"><b>Flight Number</b> : <%= @flight.flight_no%></h3>
+    <h3 class="card-title"><b>Journey Date</b> : <%= @flight.journey_date%></h3>
+    <h3 class="card-title"><b>Departure Time</b> : <%= @flight.dep_time.strftime("%k:%M")%></h3>
+    <h3 class="card-title"><b>Arrival Time </b> : <%= @flight.arr_time.strftime("%k:%M")%></h3>
+    <h3 class="card-title"><b>Departure Terminal</b> : <%= @flight.departing%></h3>
+    <h3 class="card-title"><b>Arrival Terminal</b> : <%= @flight.arriving%></h3>
+    <h3 class="card-title"><b>Flight Status</b> : <%= @flight.flight_status%></h3>
+    <h3 class="card-title"><b>Seats Available</b> : <%= @flight.seats_available%></h3>
+    <h3 class="card-title"><b>Economy Seat Cost</b> : Rs.<%= @flight.economy%></h3>
+    <h3 class="card-title"><b>Business Seat Cost</b> : Rs.<%= @flight.business%></h3>
+    
+    <div class="mt-4">
+        <div>
+    <% if params.has_key?(:pid) %>
+        <%= link_to "Book Ticket", "/passengers/create_pnr/#{@flight.id}?pid=#{params[:pid]}&count=1",class: "btn btn-primary" %>
     <% else %>
-        <%= link_to "Book Ticket", "/passengers/new/#{@flight.id}"%>
+        <%= link_to "Book Ticket", "/passengers/create_pnr/#{@flight.id}?count=#{params[:count]}",class: "btn btn-primary"%>
     <% end %>
+    </div>
+        
+    </div>
+  </div>
+  </div>
+   </div>
 </div>

@@ -60,7 +60,7 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
-
+  config.include Devise::Test::ControllerHelpers, :type => :controller
   config.include FactoryBot::Syntax::Methods
   Shoulda::Matchers.configure do |config|
     config.integrate do |with|

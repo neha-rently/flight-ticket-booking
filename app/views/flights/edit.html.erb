@@ -9,16 +9,17 @@
         <%= form.label "Journey Date"%><br>
         <%= form.text_field :journey_date%>
     </div>
+    <div>
+        <%= form.label "Departure Time" %><br>
+        <%= form.text_field :dep_time, value: @flight.dep_time.strftime("%k:%M")%>
+    </div>
 
     <div>
         <%= form.label "Arrival Time" %><br>
         <%= form.text_field :arr_time, value: @flight.arr_time.strftime("%k:%M") %>
     </div>
 
-    <div>
-        <%= form.label "Departure Time" %><br>
-        <%= form.text_field :dep_time, value: @flight.dep_time.strftime("%k:%M")%>
-    </div>
+    
 
         <div>
         <%= form.label "Departure Terminal" %><br>

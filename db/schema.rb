@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_20_050659) do
+ActiveRecord::Schema.define(version: 2022_05_26_060039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,24 @@ ActiveRecord::Schema.define(version: 2022_05_20_050659) do
     t.index ["users_id"], name: "index_passengers_on_users_id"
   end
 
+  create_table "pnr_histories", force: :cascade do |t|
+    t.bigint "pnr_id", null: false
+    t.bigint "ticket_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pnr_id"], name: "index_pnr_histories_on_pnr_id"
+    t.index ["ticket_id"], name: "index_pnr_histories_on_ticket_id"
+  end
+
+  create_table "pnrs", force: :cascade do |t|
+    t.date "booking_date", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "count", null: false
+    t.index ["user_id"], name: "index_pnrs_on_user_id"
+  end
+
   create_table "tickets", force: :cascade do |t|
     t.string "checkin_status"
     t.string "luggage"
@@ -130,6 +148,9 @@ ActiveRecord::Schema.define(version: 2022_05_20_050659) do
 
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "passengers", "users", column: "users_id"
+  add_foreign_key "pnr_histories", "pnrs"
+  add_foreign_key "pnr_histories", "tickets"
+  add_foreign_key "pnrs", "users"
   add_foreign_key "tickets", "flights", column: "flights_id"
   add_foreign_key "tickets", "passengers"
   add_foreign_key "tickets", "users", column: "users_id"

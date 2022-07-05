@@ -1,38 +1,47 @@
-<h1>PASSENGER DETAILS</h1>
+
+
+<div class="row justify-content-center">
+  <div class="col-4">
+<div class="card">
+  <div class="card-header">
+          <h2><b>PASSENGER DETAILS</b></h2>
+          </div>
 <%= form_with model: @passenger do |form|%>
+  <div class="card-body">
     <div>
-        <%= form.label "Passenger Name" %><br>
-        <%= form.text_field :name%>
-        <% @passenger.errors.full_messages_for(:name).each do |message| %>
+    <h4 class="card-title"><b>Passenger Name</b> : <%= form.text_field :name%></h4>
+    <% @passenger.errors.full_messages_for(:name).each do |message| %>
+        <div><%= message %></div>
+        <% end %>
+    </div>
+    <div>
+    <h4 class="card-title"><b>Passenger Age</b> : <%= form.text_field :age%></h4>
+    <% @passenger.errors.full_messages_for(:age).each do |message| %>
+        <div><%= message %></div>
+        <% end %>
+    </div>
+    <div>
+    <h4 class="card-title"><b>Passenger Email</b> : <%= form.text_field :email%></h4>
+    <% @passenger.errors.full_messages_for(:email).each do |message| %>
+        <div><%= message %></div>
+        <% end %>
+    </div>
+    <div>
+    <h4 class="card-title"><b>Passenger Contact</b> : <%= form.text_field :contact%></h4>
+    <% @passenger.errors.full_messages_for(:contact).each do |message| %>
         <div><%= message %></div>
         <% end %>
     </div>
 
-    <div>
-        <%= form.label "Passenger Age"%><br>
-        <%= form.text_field :age%>
-        <% @passenger.errors.full_messages_for(:age).each do |message| %>
-        <div><%= message %></div>
-        <% end %>
-    </div>
-
-    <div>
-        <%= form.label "Passenger Email" %><br>
-        <%= form.text_field :email%>
-        <% @passenger.errors.full_messages_for(:email).each do |message| %>
-        <div><%= message %></div>
-        <% end %>
-    </div>
-
-    <div>
-        <%= form.label "Passenger Contact" %><br>
-        <%= form.text_field :contact%>
-        <% @passenger.errors.full_messages_for(:contact).each do |message| %>
-        <div><%= message %></div>
-        <% end %>
-    </div>
     
-    <div>
-        <%= form.submit %>
+    <div class="mt-4">
+        <div>
+        <%= form.submit "Edit Passenger", id:"submitBtn" ,class: "btn btn-primary"%>
+        </div>
+        
     </div>
+  </div>
+  </div>
+   </div>
 <% end %>
+</div>

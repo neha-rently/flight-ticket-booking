@@ -4,9 +4,6 @@ Rails.application.routes.draw do
   end
   # use_doorkeeper
   namespace :api do
-    # get 'flights/index'
-    # get 'flights/show'
-    # post 'flights/create'
     resources :flights
   end
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -17,6 +14,9 @@ Rails.application.routes.draw do
   get "/book", to: "flights#book"
   get "/index", to: "flights#index"
   get "/passengers/new/:id", to: "passengers#new"
+  get "/passengers/create_pnr/:id", to: "passengers#create_pnr"
+  get "/passengers/pnr/:pnr", to: "passengers#show_passengers_in_pnr"
+
   resources :passengers
   resources :tickets
   resources :flights

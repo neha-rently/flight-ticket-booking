@@ -1,0 +1,18 @@
+
+<% i=0 %>
+<div class="row">
+<% @passengers.each do |passenger| %>
+    <div class="col-lg-4 detailwrap">
+        <div class="card" style="width: 38rem;height: 16rem;">
+            <div class="card-body">
+                <h3 class="card-title"><b>Passenger Name</b> : <%= passenger.name%></h3>
+                <h3 class="card-title"><b>Passenger Age</b>  : <%= passenger.age%></h3>
+                <h3 class="card-title"><b>Passenger Email</b> : <%= passenger.email%></h3>
+                <h3 class="card-title"><b>Passenger Contact</b> : <%= passenger.contact%></h3>
+                <%= link_to "Ticket Details", ticket_path(@tickets[i])%>
+                <% i=i+1 %>
+            </div>   
+        </div>
+    </div>
+<% end %>
+</div>

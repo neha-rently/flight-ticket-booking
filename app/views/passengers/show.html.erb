@@ -1,18 +1,24 @@
 
 
 
-
-<div class="card" style="width: 38rem;height: 16rem;">
+<div class="row justify-content-center">
+  <div class="col-4">
+<div class="card">
+  <div class="card-header">
+          <h2><b>PASSENGER DETAILS</b></h2>
+          </div>
   <div class="card-body">
-    <h3 class="card-title">Passenger Name : <%= @passenger.name%></h3>
-    <h3 class="card-title">Passenger Age  : <%= @passenger.age%></h3>
-    <h3 class="card-title">Passenger Email : <%= @passenger.email%></h3>
-    <h3 class="card-title">Passenger Contact : <%= @passenger.contact%></h3>
-    <div>
-        <span><%= link_to "Edit", edit_passenger_path(@passenger)%></span>&nbsp&nbsp&nbsp
+    <h3 class="card-title"><b>Passenger Name</b> : <%= @passenger.name%></h3>
+    <h3 class="card-title"><b>Passenger Age</b>  : <%= @passenger.age%></h3>
+    <h3 class="card-title"><b>Passenger Email</b> : <%= @passenger.email%></h3>
+    <h3 class="card-title"><b>Passenger Contact</b> : <%= @passenger.contact%></h3>
+    <div class="mt-4">
+        <span><%= link_to "Edit", edit_passenger_path(@passenger) ,class: "btn btn-primary"%></span>&nbsp&nbsp&nbsp
         <%# <%= link_to "Delete", passenger_path(@passenger), method: :delete, data: { confirm: "This will delete all the tickets associated with the passenger. Are you sure?" }%> 
-        <span><%= link_to "View Travel History", tickets_path(@passenger.id)%></span>&nbsp&nbsp&nbsp
-        <span><%= link_to "Book a Flight", "/index?id=#{@passenger.id}"%></span>
+        <span><%= link_to "View Travel History", tickets_path(@passenger.id),class: "btn btn-primary" %></span>&nbsp&nbsp&nbsp
+        <span><%= link_to "Book a Flight", "/index?id=#{@passenger.id}",class: "btn btn-primary"%></span>
     </div>
   </div>
+  </div>
+   </div>
 </div>
